@@ -9,10 +9,9 @@ import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 import java.math.BigDecimal
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         recyclerView.adapter = ProductListAdapter(context = this, products = listOf(
                 Product(
