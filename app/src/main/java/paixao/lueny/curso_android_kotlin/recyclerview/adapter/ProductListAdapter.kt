@@ -11,16 +11,18 @@ import paixao.lueny.curso_android_kotlin.R
 
 class ProductListAdapter(
     private val context: Context,
-    private val products: List<Product>
+    products: List<Product>
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
+
+    private val dataSet = products.toMutableList()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(product: Product) {
-            val name = itemView.findViewById<TextView>(R.id.name)
+            val name = itemView.findViewById<TextView>(R.id.activity_products_list_name)
             name.text = product.name
-            val description = itemView.findViewById<TextView>(R.id.description)
+            val description = itemView.findViewById<TextView>(R.id.activity_products_list_description)
             description.text = product.description
-            val value = itemView.findViewById<TextView>(R.id.value)
+            val value = itemView.findViewById<TextView>(R.id.activity_products_list_value)
             value.text = product.value.toPlainString()
 
         }
@@ -33,10 +35,17 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = products[position]
+        val product = dataSet[position]
         holder.bind(product)
     }
 
-    override fun getItemCount(): Int = products.size
+    override fun getItemCount(): Int = dataSet.size
+
+    fun update(products: List<Product>) {
+    this.dataSet.clear()
+        this.dataSet.addAll(products)
+        notifyDataSetChanged()
+
+    }
 
 }

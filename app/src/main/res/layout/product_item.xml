@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/activity_products_list_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Cesta de frutas"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/activity_products_list_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,10 +24,10 @@
         tools:text="Laranja, manga e uva"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name" />
+        app:layout_constraintTop_toBottomOf="@id/activity_products_list_name" />
 
     <TextView
-        android:id="@+id/value"
+        android:id="@+id/activity_products_list_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -35,7 +35,7 @@
         tools:text="19.99"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        app:layout_constraintTop_toBottomOf="@id/activity_products_list_description" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
