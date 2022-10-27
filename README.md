@@ -6,15 +6,14 @@ Nele foi desenvolvido um aplicativo que possui a funcionalidade de listagem e ca
 - Kotlin ;
 - Activities;
 -Layout para Activities;
-  .TextView
-  .RecyclerView
-  .ConstraintLayout
-  .EditTex
-  .Button
+  - TextView
+  - RecyclerView
+  - ConstraintLayout
+  - EditTex
+  - Button
 - Binding View;
--Listener de clique;
+- Listener para cliques;
 - AndroidX;
-  .AppCompactActivity
-- Refatoração de código.
+  - AppCompactActivity
 
 # Ilustração
