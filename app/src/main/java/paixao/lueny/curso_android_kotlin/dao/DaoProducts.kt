@@ -1,6 +1,7 @@
 package paixao.lueny.curso_android_kotlin.dao
 
 import paixao.lueny.curso_android_kotlin.Produto.Product
+import java.math.BigDecimal
 
 class DaoProducts {
 
@@ -13,7 +14,12 @@ class DaoProducts {
     }
 
     companion object {
-        private val products = mutableListOf<Product>()
+        private val products = mutableListOf<Product>(
+            Product(name = "Fruta",
+            description = "Abacaxi",
+            value = BigDecimal("5.99")
+            )
+        )
     }
 }
 
