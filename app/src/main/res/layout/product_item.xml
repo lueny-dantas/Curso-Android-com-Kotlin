@@ -3,39 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/activity_products_list_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Cesta de frutas"
         android:layout_margin="16dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/activity_products_list_imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cesta de frutas" />
 
     <TextView
         android:id="@+id/activity_products_list_description"
+        android:fontFamily="@font/montserrat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        tools:text="Laranja, manga e uva"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_products_list_name" />
+        app:layout_constraintEnd_toEndOf="@id/activity_products_list_name"
+        app:layout_constraintStart_toStartOf="@id/activity_products_list_name"
+        app:layout_constraintTop_toBottomOf="@id/activity_products_list_name"
+        tools:text="Laranja, manga e uva" />
 
     <TextView
         android:id="@+id/activity_products_list_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        tools:text="19.99"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/green"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/activity_products_list_name"
+        app:layout_constraintStart_toStartOf="@id/activity_products_list_name"
+        app:layout_constraintTop_toBottomOf="@id/activity_products_list_description"
+        tools:text="19.99" />
+
+    <ImageView
+        android:id="@+id/activity_products_list_imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_products_list_description" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_products_list_name"
+        app:srcCompat = "@drawable/abacaxi"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

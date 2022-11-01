@@ -8,21 +8,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import paixao.lueny.curso_android_kotlin.Produto.Product
 import paixao.lueny.curso_android_kotlin.R
+import paixao.lueny.curso_android_kotlin.databinding.ProductItemBinding
 
 class ProductListAdapter(
     private val context: Context,
     products: List<Product>
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
-    private val dataSet = products.toMutableList()
+    private val products = products.toMutableList()
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val binding: ProductItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
         fun bind(product: Product) {
-            val name = itemView.findViewById<TextView>(R.id.activity_products_list_name)
+            val name = binding.activityProductsListName
             name.text = product.name
-            val description = itemView.findViewById<TextView>(R.id.activity_products_list_description)
+            val description =   binding.activityProductsListDescription
             description.text = product.description
-            val value = itemView.findViewById<TextView>(R.id.activity_products_list_value)
+            val value = binding.activityProductsListValue
             value.text = product.value.toPlainString()
 
         }
@@ -30,20 +33,20 @@ class ProductListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.product_item, parent, false)
-        return ViewHolder(view)
+        val binding = ProductItemBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = dataSet[position]
+        val product = products[position]
         holder.bind(product)
     }
 
-    override fun getItemCount(): Int = dataSet.size
+    override fun getItemCount(): Int = products.size
 
     fun update(products: List<Product>) {
-    this.dataSet.clear()
-        this.dataSet.addAll(products)
+    this.products.clear()
+        this.products.addAll(products)
         notifyDataSetChanged()
 
     }

@@ -2,26 +2,25 @@ package paixao.lueny.curso_android_kotlin.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import paixao.lueny.curso_android_kotlin.Produto.Product
-import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.dao.DaoProducts
+import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
 import java.math.BigDecimal
 
-class ActivityProductForm :
-    AppCompatActivity(R.layout.activity_activity_product_form) {
+class ActivityProductForm : AppCompatActivity() {
+    private val binding by lazy {
+        ActivityProductFormBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(binding.root)
         configureButtonSave()
     }
 
     private fun configureButtonSave(){
-        val salveButton = findViewById<Button>(R.id.activity_products_list_save_button)
+        val salveButton = binding.activityProductsListSaveButton
         val dao = DaoProducts()
-
         salveButton.setOnClickListener {
             val createdProduct = createProduct()
             dao.add(createdProduct)
@@ -30,11 +29,11 @@ class ActivityProductForm :
     }
 
     private fun createProduct(): Product {
-        val nameField = findViewById<EditText>(R.id.activity_products_list_name)
+        val nameField = binding.activityProductsListName
         val name = nameField.text.toString()
-        val descriptionField = findViewById<EditText>(R.id.activity_products_list_description)
+        val descriptionField = binding.activityProductsListDescription
         val description = descriptionField.text.toString()
-        val valueField = findViewById<EditText>(R.id.activity_products_list_value)
+        val valueField = binding.activityProductsListValue
         val textValue = valueField.text.toString()
         val value = if (textValue.isBlank()) {
             BigDecimal.ZERO
@@ -48,3 +47,4 @@ class ActivityProductForm :
         )
     }
 }
+

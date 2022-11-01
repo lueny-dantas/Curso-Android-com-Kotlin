@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".activity.ActivityProductForm">
+        tools:context=".activity.ProductForm">
 
         <EditText
             android:id="@+id/activity_products_list_name"
