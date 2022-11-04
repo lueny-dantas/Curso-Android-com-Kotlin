@@ -1,6 +1,4 @@
-
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,67 +7,66 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/activity_products_list_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/montserrat_bold"
-        android:maxLines="1"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/activity_products_list_imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/lorem/random" />
+        <TextView
+            android:id="@+id/activity_products_list_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_bold"
+            android:maxLines="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/activity_products_list_imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem/random" />
 
-    <TextView
-        android:id="@+id/activity_products_list_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:ellipsize="end"
-        android:maxLines="1"
-        tools:text="@tools:sample/lorem/random"
-        app:layout_constraintEnd_toEndOf="@id/activity_products_list_name"
-        app:layout_constraintStart_toStartOf="@id/activity_products_list_name"
-        app:layout_constraintTop_toBottomOf="@id/activity_products_list_name" />
+        <TextView
+            android:id="@+id/activity_products_list_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/activity_products_list_name"
+            app:layout_constraintStart_toStartOf="@id/activity_products_list_name"
+            app:layout_constraintTop_toBottomOf="@id/activity_products_list_name"
+            tools:text="@tools:sample/lorem/random" />
 
-    <TextView
-        android:id="@+id/activity_products_list_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/green"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/activity_products_list_name"
-        app:layout_constraintStart_toStartOf="@id/activity_products_list_name"
-        app:layout_constraintTop_toBottomOf="@id/activity_products_list_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
-        tools:text="19.99" />
+        <TextView
+            android:id="@+id/activity_products_list_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/activity_products_list_name"
+            app:layout_constraintStart_toStartOf="@id/activity_products_list_name"
+            app:layout_constraintTop_toBottomOf="@id/activity_products_list_description"
+            tools:text="R$ 19.99" />
 
-    <ImageView
-        android:id="@+id/activity_products_list_imageView"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/activity_products_list_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/laranjas" />
+        <ImageView
+            android:id="@+id/activity_products_list_imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.3"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/activity_products_list_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/laranjas" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

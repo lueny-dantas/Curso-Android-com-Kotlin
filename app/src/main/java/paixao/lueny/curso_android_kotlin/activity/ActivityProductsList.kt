@@ -1,8 +1,10 @@
 package paixao.lueny.curso_android_kotlin.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import paixao.lueny.curso_android_kotlin.R
@@ -22,6 +24,7 @@ class ActivityProductsList : AppCompatActivity() {
         setContentView(binding.root)
         configureRecyclerView()
         configureFab()
+
     }
 
     override fun onResume() {
