@@ -2,13 +2,9 @@ package paixao.lueny.curso_android_kotlin.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import coil.load
 import paixao.lueny.curso_android_kotlin.Produto.Product
-import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.dao.DaoProducts
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
-import paixao.lueny.curso_android_kotlin.databinding.ImageFormBinding
 import paixao.lueny.curso_android_kotlin.dialog.ImageFormDialog
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
 import java.math.BigDecimal

@@ -3,7 +3,6 @@ package paixao.lueny.curso_android_kotlin.dialog
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import paixao.lueny.curso_android_kotlin.databinding.ImageFormBinding
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage

@@ -1,13 +1,8 @@
 package paixao.lueny.curso_android_kotlin.activity
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.dao.DaoProducts
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
@@ -48,5 +43,14 @@ class ActivityProductsList : AppCompatActivity() {
     private fun configureRecyclerView() {
         val recyclerView = binding.activityProductsListRecyclerview
         recyclerView.adapter = adapter
+        adapter.whenClickItem = {
+            val intent = Intent(
+                this,
+                ActivityProductDetails::class.java
+            ).apply {
+                putExtra(PRODUCT_KEY, it)
+            }
+            startActivity(intent)
+        }
     }
 }

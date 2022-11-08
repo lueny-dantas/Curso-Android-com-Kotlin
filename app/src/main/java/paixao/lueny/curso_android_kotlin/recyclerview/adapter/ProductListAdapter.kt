@@ -5,31 +5,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import paixao.lueny.curso_android_kotlin.Produto.Product
-import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.databinding.ProductItemBinding
+import paixao.lueny.curso_android_kotlin.extensions.currencyFormatting
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
-import java.text.NumberFormat
-import java.util.*
+
 
 class ProductListAdapter(
     private val context: Context,
-    products: List<Product>
+    products: List<Product>,
+    var whenClickItem:(product:Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
     private val products = products.toMutableList()
 
-    class ViewHolder(private val binding: ProductItemBinding) :
+    inner class ViewHolder(private val binding: ProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private lateinit var product: Product
+
+        init {
+            itemView.setOnClickListener {
+                if (::product.isInitialized){
+                    whenClickItem (product)
+                }
+            }
+        }
 
         fun bind(product: Product) {
+            this.product = product
             val name = binding.activityProductsListName
             name.text = product.name
             val description = binding.activityProductsListDescription
             description.text = product.description
             val value = binding.activityProductsListValue
-            val currencyValue: String = currencyFormatter(product)
+            val currencyValue: String = product.value.currencyFormatting()
             value.text = currencyValue
 
             val visibility = if (product.image != null) {
@@ -44,11 +53,6 @@ class ProductListAdapter(
 
         }
 
-        private fun currencyFormatter(product: Product): String {
-            val currencyFormatter: NumberFormat = NumberFormat
-                .getCurrencyInstance(Locale("pt", "br"))
-            return currencyFormatter.format(product.value)
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -3,13 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/drawable/background_details_screen.xml" value="0.1" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/drawable/background_products.xml" value="0.1765" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/drawable/ic_action_add.xml" value="0.1" />
+        <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1835" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/drawable/placeholder.xml" value="0.1" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/activity_activity_product_form.xml" value="0.67" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/activity_main.xml" value="0.4976851851851852" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/activity_product_form.xml" value="0.5287958115183246" />
+        <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/activity_products_details.xml" value="0.5" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/activity_products_list.xml" value="0.67" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/image_form.xml" value="0.1" />
         <entry key="..\:/Estudos/Android/curso-android-alura/app/src/main/res/layout/product_item.xml" value="0.2471264367816092" />
