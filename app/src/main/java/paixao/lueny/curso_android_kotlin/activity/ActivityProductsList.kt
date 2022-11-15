@@ -1,30 +1,31 @@
 package paixao.lueny.curso_android_kotlin.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import paixao.lueny.curso_android_kotlin.dao.DaoProducts
+import androidx.appcompat.app.AppCompatActivity
+import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 
 class ActivityProductsList : AppCompatActivity() {
 
-    private val dao = DaoProducts()
-    private val adapter =  ProductListAdapter(context = this, products = dao.searchAll())
+    private val adapter = ProductListAdapter(context = this, products = emptyList())
     private val binding by lazy {
         ActivityProductsListBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configureRecyclerView()
         configureFab()
-
     }
 
     override fun onResume() {
         super.onResume()
-        adapter.update(dao.searchAll())
+        val db = AppDatabase.instance(this)
+        val productDao = db.productDao()
+        adapter.update(productDao.searchAll())
     }
 
     private fun configureFab() {

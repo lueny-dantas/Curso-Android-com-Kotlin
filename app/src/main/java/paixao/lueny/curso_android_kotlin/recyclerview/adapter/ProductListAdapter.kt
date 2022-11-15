@@ -13,7 +13,7 @@ import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
 
 class ProductListAdapter(
     private val context: Context,
-    products: List<Product>,
+    products: List<Product> = emptyList(),
     var whenClickItem:(product:Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 

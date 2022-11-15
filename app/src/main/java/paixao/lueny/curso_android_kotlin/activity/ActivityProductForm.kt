@@ -1,9 +1,9 @@
 package paixao.lueny.curso_android_kotlin.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import paixao.lueny.curso_android_kotlin.Produto.Product
-import paixao.lueny.curso_android_kotlin.dao.DaoProducts
+import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
 import paixao.lueny.curso_android_kotlin.dialog.ImageFormDialog
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
@@ -22,7 +22,7 @@ class ActivityProductForm : AppCompatActivity() {
         configureButtonSave()
         binding.activityProductsListImageview.setOnClickListener {
             ImageFormDialog(this)
-                .show{ imagem ->
+                .show { imagem ->
                     url = imagem
                     binding.activityProductsListImageview.tryLoadImage(url)
                 }
@@ -31,10 +31,12 @@ class ActivityProductForm : AppCompatActivity() {
 
     private fun configureButtonSave() {
         val salveButton = binding.activityProductsListSaveButton
-        val dao = DaoProducts()
+        val db =AppDatabase.instance(this)
+        val productDao = db.productDao()
+
         salveButton.setOnClickListener {
             val createdProduct = createProduct()
-            dao.add(createdProduct)
+            productDao.save(createdProduct)
             finish()
         }
     }
