@@ -2,10 +2,13 @@ package paixao.lueny.curso_android_kotlin.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import paixao.lueny.curso_android_kotlin.Produto.Product
+import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.databinding.ProductItemBinding
 import paixao.lueny.curso_android_kotlin.extensions.currencyFormatting
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
@@ -14,13 +17,15 @@ import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
 class ProductListAdapter(
     private val context: Context,
     products: List<Product> = emptyList(),
-    var whenClickItem:(product:Product) -> Unit = {}
+    var whenClickItem:(product:Product) -> Unit = {},
+//    var whenClickEdit:(product:Product) -> Unit = {},
+//    var whenClickRemove:(product:Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
     private val products = products.toMutableList()
 
     inner class ViewHolder(private val binding: ProductItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root)/*PopupMenu.OnMenuItemClickListener*/ {
         private lateinit var product: Product
 
         init {
@@ -29,6 +34,13 @@ class ProductListAdapter(
                     whenClickItem (product)
                 }
             }
+//            itemView.setOnClickListener {
+//                PopupMenu(context,itemView).apply {
+//                    menuInflater.inflate(R.menu.menu_product_details,menu)
+//                    setOnMenuItemClickListener(this@ViewHolder)
+//                }.show()
+//                true
+//            }
         }
 
         fun bind(product: Product) {
@@ -50,9 +62,21 @@ class ProductListAdapter(
 
             binding.activityProductsListImageView.tryLoadImage(product.image)
 
-
         }
 
+//        override fun onMenuItemClick(item: MenuItem?): Boolean {
+//            item?.let {
+//                when (item.itemId) {
+//                    R.id.menu_product_details_remove -> {
+//                        whenClickRemove(product)
+//                    }
+//                    R.id.menu_product_details_edit -> {
+//                        whenClickEdit(product)
+//                    }
+//                }
+//            }
+//            return true
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

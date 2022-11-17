@@ -4,16 +4,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import paixao.lueny.curso_android_kotlin.Produto.Product
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
+import paixao.lueny.curso_android_kotlin.database.dao.ProductDao
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
 import paixao.lueny.curso_android_kotlin.dialog.ImageFormDialog
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
 import java.math.BigDecimal
 
 class ActivityProductForm : AppCompatActivity() {
-    private val binding by lazy {
-        ActivityProductFormBinding.inflate(layoutInflater)
-    }
+    private val binding by lazy { ActivityProductFormBinding.inflate(layoutInflater) }
+    private val productDao by lazy { AppDatabase.instance(this).productDao() }
     private var url: String? = null
+    private var productId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +28,39 @@ class ActivityProductForm : AppCompatActivity() {
                     binding.activityProductsListImageview.tryLoadImage(url)
                 }
         }
+        tryLoadProductId()
+    }
+
+    private fun tryLoadProductId() {
+        productId = intent.getLongExtra(ID_PRODUCT_KEY, 0L)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        trySearchProductId()
+
+    }
+
+    private fun trySearchProductId() {
+        productDao.searchById(productId)?.let {
+            title = "Alterar Produto"
+            fillFields(it)
+        }
+    }
+
+    private fun fillFields(product: Product) {
+        url = product.image
+        binding.activityProductsListImageview.tryLoadImage(product.image)
+        binding.activityProductsListName.setText(product.name)
+        binding.activityProductsListDescription.setText(product.description)
+        binding.activityProductsListValue.setText(product.value.toPlainString())
     }
 
     private fun configureButtonSave() {
         val salveButton = binding.activityProductsListSaveButton
-        val db =AppDatabase.instance(this)
-        val productDao = db.productDao()
-
         salveButton.setOnClickListener {
-            val createdProduct = createProduct()
-            productDao.save(createdProduct)
+            val newProduct = createProduct()
+            productDao.save(newProduct)
             finish()
         }
     }
@@ -54,6 +78,7 @@ class ActivityProductForm : AppCompatActivity() {
             BigDecimal(textValue)
         }
         return Product(
+            id = productId,
             name = name,
             description = description,
             value = value,
