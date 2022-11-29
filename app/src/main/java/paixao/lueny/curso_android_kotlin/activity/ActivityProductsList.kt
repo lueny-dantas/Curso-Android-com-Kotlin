@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import paixao.lueny.curso_android_kotlin.Produto.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
@@ -59,7 +61,13 @@ class ActivityProductsList : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.update(productDao.searchAll())
+        val scope = CoroutineScope(IO)
+        scope.launch {
+            val products = withContext(IO) {
+                productDao.searchAll()
+            }
+        adapter.update(products)
+        }
     }
 
     private fun configureFab() {

@@ -2,6 +2,12 @@ package paixao.lueny.curso_android_kotlin.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import paixao.lueny.curso_android_kotlin.Produto.Product
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.database.dao.ProductDao
@@ -15,6 +21,7 @@ class ActivityProductForm : AppCompatActivity() {
     private val productDao by lazy { AppDatabase.instance(this).productDao() }
     private var url: String? = null
     private var productId = 0L
+    private val scope = CoroutineScope(IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +39,11 @@ class ActivityProductForm : AppCompatActivity() {
     }
 
     private fun tryLoadProductId() {
-        productId = intent.getLongExtra(ID_PRODUCT_KEY, 0L)
+        scope.launch {
+            productId = intent.getLongExtra(ID_PRODUCT_KEY, 0L)
+        }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -42,9 +52,13 @@ class ActivityProductForm : AppCompatActivity() {
     }
 
     private fun trySearchProductId() {
-        productDao.searchById(productId)?.let {
-            title = "Alterar Produto"
-            fillFields(it)
+        scope.launch {
+            productDao.searchById(productId)?.let {
+                withContext(Main){
+                    title = "Alterar Produto"
+                    fillFields(it)
+                }
+            }
         }
     }
 
@@ -60,8 +74,10 @@ class ActivityProductForm : AppCompatActivity() {
         val salveButton = binding.activityProductsListSaveButton
         salveButton.setOnClickListener {
             val newProduct = createProduct()
-            productDao.save(newProduct)
-            finish()
+            scope.launch {
+                productDao.save(newProduct)
+                finish()
+            }
         }
     }
 

@@ -5,6 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import paixao.lueny.curso_android_kotlin.Produto.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
@@ -18,6 +24,7 @@ class ActivityProductDetails : AppCompatActivity() {
     private var product: Product? = null
     private val binding by lazy { ActivityProductDetailsBinding.inflate(layoutInflater) }
     private val productDao by lazy { AppDatabase.instance(context = this).productDao() }
+    private val scope = CoroutineScope(IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +38,14 @@ class ActivityProductDetails : AppCompatActivity() {
     }
 
     private fun searchProductDatabase() {
-        product = productDao.searchById(productId)
-        product?.let {
-            fillFields(it)
-        } ?: finish()
+        scope.launch {
+            product = productDao.searchById(productId)
+            withContext(Main){
+                product?.let {
+                    fillFields(it)
+                } ?: finish()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -45,8 +56,11 @@ class ActivityProductDetails : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_product_details_remove -> {
-                product?.let { productDao.remove(it) }
-                finish()
+                scope.launch {
+                    product?.let { productDao.remove(it) }
+                    finish()
+                }
+
             }
             R.id.menu_product_details_edit -> {
                 Intent(this, ActivityProductForm::class.java).apply {
