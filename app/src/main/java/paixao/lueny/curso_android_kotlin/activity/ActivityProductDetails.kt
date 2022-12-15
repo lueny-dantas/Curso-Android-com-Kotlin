@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import paixao.lueny.curso_android_kotlin.Produto.Product
+import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductDetailsBinding
@@ -24,7 +22,6 @@ class ActivityProductDetails : AppCompatActivity() {
     private var product: Product? = null
     private val binding by lazy { ActivityProductDetailsBinding.inflate(layoutInflater) }
     private val productDao by lazy { AppDatabase.instance(context = this).productDao() }
-    private val scope = CoroutineScope(IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +35,7 @@ class ActivityProductDetails : AppCompatActivity() {
     }
 
     private fun searchProductDatabase() {
-        scope.launch {
+        lifecycleScope.launch {
             product = productDao.searchById(productId)
             withContext(Main){
                 product?.let {
@@ -56,7 +53,7 @@ class ActivityProductDetails : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_product_details_remove -> {
-                scope.launch {
+                lifecycleScope.launch {
                     product?.let { productDao.remove(it) }
                     finish()
                 }

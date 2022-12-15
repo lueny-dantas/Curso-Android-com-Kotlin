@@ -2,15 +2,10 @@ package paixao.lueny.curso_android_kotlin.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import paixao.lueny.curso_android_kotlin.Produto.Product
+import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
-import paixao.lueny.curso_android_kotlin.database.dao.ProductDao
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
 import paixao.lueny.curso_android_kotlin.dialog.ImageFormDialog
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
@@ -21,7 +16,6 @@ class ActivityProductForm : AppCompatActivity() {
     private val productDao by lazy { AppDatabase.instance(this).productDao() }
     private var url: String? = null
     private var productId = 0L
-    private val scope = CoroutineScope(IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +33,7 @@ class ActivityProductForm : AppCompatActivity() {
     }
 
     private fun tryLoadProductId() {
-        scope.launch {
+        lifecycleScope.launch {
             productId = intent.getLongExtra(ID_PRODUCT_KEY, 0L)
         }
     }
@@ -52,15 +46,13 @@ class ActivityProductForm : AppCompatActivity() {
     }
 
     private fun trySearchProductId() {
-        scope.launch {
+        lifecycleScope.launch {
             productDao.searchById(productId)?.let {
-                withContext(Main){
                     title = "Alterar Produto"
                     fillFields(it)
                 }
             }
         }
-    }
 
     private fun fillFields(product: Product) {
         url = product.image
@@ -74,7 +66,7 @@ class ActivityProductForm : AppCompatActivity() {
         val salveButton = binding.activityProductsListSaveButton
         salveButton.setOnClickListener {
             val newProduct = createProduct()
-            scope.launch {
+            lifecycleScope.launch {
                 productDao.save(newProduct)
                 finish()
             }

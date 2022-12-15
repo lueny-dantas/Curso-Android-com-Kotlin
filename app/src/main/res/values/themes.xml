@@ -15,7 +15,7 @@
 
         <item name="android:fontFamily"> @font/montserrat</item>
     </style>
-    <style name="Theme.Cursoandroidkotlin.NoActionBar." parent="Theme.Cursoandroidkotlin">
+    <style name="Theme.Cursoandroidkotlin.NoActionBar" parent="Theme.Cursoandroidkotlin">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -2,13 +2,11 @@ package paixao.lueny.curso_android_kotlin.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
-import paixao.lueny.curso_android_kotlin.Produto.Product
-import paixao.lueny.curso_android_kotlin.R
+import kotlinx.coroutines.flow.Flow
+import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.databinding.ProductItemBinding
 import paixao.lueny.curso_android_kotlin.extensions.currencyFormatting
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
@@ -17,7 +15,7 @@ import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
 class ProductListAdapter(
     private val context: Context,
     products: List<Product> = emptyList(),
-    var whenClickItem:(product:Product) -> Unit = {},
+    var whenClickItem:(product: Product) -> Unit = {},
 //    var whenClickEdit:(product:Product) -> Unit = {},
 //    var whenClickRemove:(product:Product) -> Unit = {}
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
@@ -92,7 +90,7 @@ class ProductListAdapter(
 
     override fun getItemCount(): Int = products.size
 
-    fun update(products: List<Product>) {
+    fun update() {
         this.products.clear()
         this.products.addAll(products)
         notifyDataSetChanged()

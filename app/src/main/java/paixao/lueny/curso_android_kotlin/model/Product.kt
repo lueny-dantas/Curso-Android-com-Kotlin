@@ -1,4 +1,4 @@
-package paixao.lueny.curso_android_kotlin.Produto
+package paixao.lueny.curso_android_kotlin.model
 
 import android.os.Parcelable
 import androidx.room.Entity

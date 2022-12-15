@@ -2,31 +2,46 @@ package paixao.lueny.curso_android_kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
-import paixao.lueny.curso_android_kotlin.Produto.Product
+import kotlinx.coroutines.flow.Flow
+import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 
-//private const val TAG = "ActivityProductList"
 
 class ActivityProductsList : AppCompatActivity() {
 
     private val adapter = ProductListAdapter(context = this, products = emptyList())
     private val binding by lazy { ActivityProductsListBinding.inflate(layoutInflater) }
     private val productDao by lazy { AppDatabase.instance(this).productDao() }
+    private val userDao by lazy { AppDatabase.instance(this).userDao() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configureRecyclerView()
         configureFab()
+        lifecycleScope.launch {
+            productDao.searchAll().collect { products ->
+                adapter.update()
+            }
+            intent.getStringExtra("KEY_USER_ID")?.let { userId ->
+                lifecycleScope.launch {
+                    val user = userDao.searchById(userId)
+                    Log.i("listaProdutos", "onCreate: $user")
+                }
+            }
+        }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_list_products, menu)
@@ -35,7 +50,7 @@ class ActivityProductsList : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        val sortedProducts: List<Product>? = when (item.itemId) {
+        val sortedProducts: Flow<List<Product>>? = when (item.itemId) {
             R.id.menu_list_product_sort_name_asc ->
                 productDao.searchAllSortbyNameAsc()
             R.id.menu_list_product_sort_name_desc ->
@@ -53,22 +68,16 @@ class ActivityProductsList : AppCompatActivity() {
             else -> null
 
         }
-        sortedProducts?.let {
-            adapter.update(it)
+
+        lifecycleScope.launch {
+            sortedProducts?.collect {
+                adapter.update()
+            }
         }
+
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        val scope = CoroutineScope(IO)
-        scope.launch {
-            val products = withContext(IO) {
-                productDao.searchAll()
-            }
-        adapter.update(products)
-        }
-    }
 
     private fun configureFab() {
         val fab = binding.activityProductsListFab
@@ -95,11 +104,5 @@ class ActivityProductsList : AppCompatActivity() {
             }
             startActivity(intent)
         }
-//        adapter.whenClickEdit = {
-//            Log.i(TAG, "configureRecyclerView: Edit $it")
-//        }
-//        adapter.whenClickRemove = {
-//            Log.i(TAG, "configureRecyclerView: Remove $it")
-//        }
     }
 }
