@@ -1,21 +1,27 @@
 package paixao.lueny.curso_android_kotlin.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
-import paixao.lueny.curso_android_kotlin.dialog.ImageFormDialog
+import paixao.lueny.curso_android_kotlin.imageProdutcs.DownloadImageForm
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
+import paixao.lueny.curso_android_kotlin.preferences.dataStore
+import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
 import java.math.BigDecimal
 
 class ActivityProductForm : AppCompatActivity() {
     private val binding by lazy { ActivityProductFormBinding.inflate(layoutInflater) }
     private val productDao by lazy { AppDatabase.instance(this).productDao() }
+    private val userDao by lazy { AppDatabase.instance(this).userDao() }
     private var url: String? = null
     private var productId = 0L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,19 +29,29 @@ class ActivityProductForm : AppCompatActivity() {
         title = "Cadastrar produto"
         configureButtonSave()
         binding.activityProductsListImageview.setOnClickListener {
-            ImageFormDialog(this)
-                .show { imagem ->
+            DownloadImageForm(this)
+                .showImage { imagem ->
                     url = imagem
                     binding.activityProductsListImageview.tryLoadImage(url)
                 }
         }
+
         tryLoadProductId()
+        lifecycleScope.launch {
+            dataStore.data.collect { preferences ->
+                preferences[userLoggedPreferences]?.let { userId ->
+                    userDao.searchById(userId).collect {
+                        Log.i("listaProdutos", "onCreate: $it")
+                    }
+                }
+            }
+        }
     }
 
     private fun tryLoadProductId() {
-        lifecycleScope.launch {
+//        lifecycleScope.launch {
             productId = intent.getLongExtra(ID_PRODUCT_KEY, 0L)
-        }
+//        }
     }
 
 
@@ -47,12 +63,14 @@ class ActivityProductForm : AppCompatActivity() {
 
     private fun trySearchProductId() {
         lifecycleScope.launch {
-            productDao.searchById(productId)?.let {
-                    title = "Alterar Produto"
-                    fillFields(it)
-                }
+            productDao.searchById(productId).collect{
+                it?.let { productFound ->
+                title = "Alterar Produto"
+                fillFields(productFound)
+            }
             }
         }
+    }
 
     private fun fillFields(product: Product) {
         url = product.image

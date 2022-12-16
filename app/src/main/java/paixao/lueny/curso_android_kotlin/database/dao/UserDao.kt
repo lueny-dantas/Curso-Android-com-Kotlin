@@ -3,6 +3,8 @@ package paixao.lueny.curso_android_kotlin.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+import paixao.lueny.curso_android_kotlin.model.Product
 
 import paixao.lueny.curso_android_kotlin.model.User
 
@@ -15,10 +17,8 @@ interface UserDao {
     suspend fun authenticate(
         userId: String,
         password: String
-    ): List<User>
+    ): User?
 
     @Query("SELECT * FROM User WHERE id = :userId")
-    suspend fun searchById(userId: String): List<User>
-
-
+    fun searchById(userId: String): Flow<User>
 }

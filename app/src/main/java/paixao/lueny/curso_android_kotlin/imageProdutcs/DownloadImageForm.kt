@@ -1,4 +1,4 @@
-package paixao.lueny.curso_android_kotlin.dialog
+package paixao.lueny.curso_android_kotlin.imageProdutcs
 
 import android.content.Context
 import android.util.Log
@@ -7,9 +7,9 @@ import androidx.appcompat.app.AlertDialog
 import paixao.lueny.curso_android_kotlin.databinding.ImageFormBinding
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
 
-class ImageFormDialog(private val context: Context) {
+class DownloadImageForm(private val context: Context) {
 
-    fun show(uploadedImage: (image:String) -> Unit) {
+    fun showImage(uploadedImage: (image:String) -> Unit) {
         val binding = ImageFormBinding.inflate(LayoutInflater.from(context))
         binding.imageFormButtonLoad.setOnClickListener {
             val url = binding.imageFormUrl.text.toString()

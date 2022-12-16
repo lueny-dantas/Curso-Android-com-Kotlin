@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import paixao.lueny.curso_android_kotlin.model.Product
-import paixao.lueny.curso_android_kotlin.database.converter.Converters
 import paixao.lueny.curso_android_kotlin.database.dao.ProductDao
 import paixao.lueny.curso_android_kotlin.database.dao.UserDao
 import paixao.lueny.curso_android_kotlin.model.User

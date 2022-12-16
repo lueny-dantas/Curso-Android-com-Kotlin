@@ -13,6 +13,8 @@ import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
+import paixao.lueny.curso_android_kotlin.preferences.dataStore
+import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 
 
@@ -30,13 +32,17 @@ class ActivityProductsList : AppCompatActivity() {
         configureRecyclerView()
         configureFab()
         lifecycleScope.launch {
-            productDao.searchAll().collect { products ->
-                adapter.update()
+            launch {
+                productDao.searchAll().collect { products ->
+                    adapter.update(products)
+                }
             }
-            intent.getStringExtra("KEY_USER_ID")?.let { userId ->
-                lifecycleScope.launch {
-                    val user = userDao.searchById(userId)
-                    Log.i("listaProdutos", "onCreate: $user")
+
+            dataStore.data.collect { preferences ->
+                preferences[userLoggedPreferences]?.let { userId ->
+                    userDao.searchById(userId).collect {
+                        Log.i("listaProdutos", "onCreate: $it")
+                    }
                 }
             }
         }
@@ -70,8 +76,8 @@ class ActivityProductsList : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            sortedProducts?.collect {
-                adapter.update()
+            sortedProducts?.collect {products ->
+                adapter.update(products)
             }
         }
 

@@ -18,7 +18,7 @@ interface ProductDao {
     suspend fun remove(product: Product)
 
     @Query("SELECT * FROM Product WHERE id = :productId")
-    suspend fun searchById(productId: Long): Product?
+    fun searchById(productId: Long): Flow<Product?>
 
     @Query("SELECT * FROM Product ORDER BY name ASC")
     fun searchAllSortbyNameAsc():Flow<List<Product>>

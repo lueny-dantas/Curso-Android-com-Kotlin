@@ -1,4 +1,4 @@
-package paixao.lueny.curso_android_kotlin.database.converter
+package paixao.lueny.curso_android_kotlin.database
 
 import androidx.room.TypeConverter
 import java.math.BigDecimal

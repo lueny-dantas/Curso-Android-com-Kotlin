@@ -36,8 +36,8 @@ class ActivityProductDetails : AppCompatActivity() {
 
     private fun searchProductDatabase() {
         lifecycleScope.launch {
-            product = productDao.searchById(productId)
-            withContext(Main){
+            productDao.searchById(productId).collect { productFound ->
+                product = productFound
                 product?.let {
                     fillFields(it)
                 } ?: finish()
@@ -53,9 +53,11 @@ class ActivityProductDetails : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_product_details_remove -> {
-                lifecycleScope.launch {
-                    product?.let { productDao.remove(it) }
-                    finish()
+                product?.let {
+                    lifecycleScope.launch {
+                        productDao.remove(it)
+                        finish()
+                    }
                 }
 
             }
