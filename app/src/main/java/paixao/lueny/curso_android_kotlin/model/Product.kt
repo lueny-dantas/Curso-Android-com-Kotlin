@@ -14,6 +14,8 @@ import java.math.BigDecimal
     val name: String,
     val description: String,
     val value: BigDecimal,
-    val image: String? = null
+    val image: String? = null,
+    val userId: String? = null
+
 ):Parcelable
 

@@ -1,11 +1,13 @@
 package paixao.lueny.curso_android_kotlin.activity
 
 import android.os.Bundle
+import android.security.identity.AccessControlProfileId
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
@@ -38,17 +40,10 @@ class ActivityProductForm : ActivityBase() {
         }
 
         tryLoadProductId()
-        lifecycleScope.launch {
-            user
-                .filterNotNull()
-                .collect()
-        }
     }
 
     private fun tryLoadProductId() {
-//        lifecycleScope.launch {
             productId = intent.getLongExtra(ID_PRODUCT_KEY, 0L)
-//        }
     }
 
 
@@ -80,15 +75,16 @@ class ActivityProductForm : ActivityBase() {
     private fun configureButtonSave() {
         val salveButton = binding.activityProductsListSaveButton
         salveButton.setOnClickListener {
-            val newProduct = createProduct()
             lifecycleScope.launch {
-                productDao.save(newProduct)
-                finish()
+                user.value?.let { user ->
+                    val newProduct = createProduct(user.id)
+                    productDao.save(newProduct)
+                    finish() }
             }
         }
     }
 
-    private fun createProduct(): Product {
+    private fun createProduct(userId: String): Product {
         val nameField = binding.activityProductsListName
         val name = nameField.text.toString()
         val descriptionField = binding.activityProductsListDescription
@@ -100,12 +96,14 @@ class ActivityProductForm : ActivityBase() {
         } else {
             BigDecimal(textValue)
         }
+
         return Product(
             id = productId,
             name = name,
             description = description,
             value = value,
-            image = url
+            image = url,
+            userId = userId
         )
     }
 }

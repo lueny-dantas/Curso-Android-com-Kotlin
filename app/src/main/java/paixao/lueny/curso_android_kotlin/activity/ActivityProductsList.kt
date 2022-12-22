@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.R
@@ -13,6 +14,7 @@ import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
 import paixao.lueny.curso_android_kotlin.extensions.goTo
 import paixao.lueny.curso_android_kotlin.model.Product
+import paixao.lueny.curso_android_kotlin.model.User
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 
 
@@ -28,18 +30,24 @@ class ActivityProductsList : ActivityBase() {
         configureRecyclerView()
         configureFab()
         lifecycleScope.launch {
-            launch {
                 user
                     .filterNotNull()
-                    .collect {
-                        searchProductsUser()
+                    .collect { user: User ->
+//                        searchProductsUser()
+                        searchProductsUserId(user.id)
                     }
-            }
+
         }
     }
 
     private suspend fun searchProductsUser() {
         productDao.searchAll().collect { products ->
+            adapter.update(products)
+        }
+    }
+
+    private suspend fun searchProductsUserId(userId:String) {
+        productDao.searchAllProductByUserId(userId).collect { products ->
             adapter.update(products)
         }
     }
@@ -50,29 +58,31 @@ class ActivityProductsList : ActivityBase() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        val sortedProducts: Flow<List<Product>>? = when (item.itemId) {
-            R.id.menu_list_product_sort_name_asc ->
-                productDao.searchAllSortbyNameAsc()
-            R.id.menu_list_product_sort_name_desc ->
-                productDao.searchAllSortByNameDesc()
-            R.id.menu_list_product_sort_description_asc ->
-                productDao.searchAllSortByDescriptionAsc()
-            R.id.menu_list_product_sort_description_desc ->
-                productDao.searchAllSortByDescriptionDesc()
-            R.id.menu_list_product_sort_value_asc ->
-                productDao.searchAllSortByValueAsc()
-            R.id.menu_list_product_sort_value_desc ->
-                productDao.searchAllSortByValueDesc()
-            R.id.menu_list_product_without_sort ->
-                productDao.searchAll()
-            else -> null
-        }
-
         lifecycleScope.launch {
-            sortedProducts?.collect { products ->
-                adapter.update(products)
-            }
+            user
+                .filterNotNull()
+                .collect{ user ->
+                    val sortedProducts: Flow<List<Product>>? = when (item.itemId) {
+                        R.id.menu_list_product_sort_name_asc ->
+                            productDao.searchAllSortByNameAsc(userId = user.id)
+                        R.id.menu_list_product_sort_name_desc ->
+                            productDao.searchAllSortByNameDesc(userId = user.id)
+                        R.id.menu_list_product_sort_description_asc ->
+                            productDao.searchAllSortByDescriptionAsc(userId = user.id)
+                        R.id.menu_list_product_sort_description_desc ->
+                            productDao.searchAllSortByDescriptionDesc(userId = user.id)
+                        R.id.menu_list_product_sort_value_asc ->
+                            productDao.searchAllSortByValueAsc(userId = user.id)
+                        R.id.menu_list_product_sort_value_desc ->
+                            productDao.searchAllSortByValueDesc(userId = user.id)
+                        R.id.menu_list_product_without_sort ->
+                            productDao.searchAll()
+                        else -> null
+                    }
+                    sortedProducts?.collect { products ->
+                        adapter.update(products)
+                    }
+                }
         }
 
         when (item.itemId) {

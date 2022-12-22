@@ -19,8 +19,8 @@ import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
 abstract class ActivityBase : AppCompatActivity() {
 
     private val userDao by lazy { AppDatabase.instance(this).userDao() }
-    private var _user: MutableStateFlow<User?> = MutableStateFlow(null)
-    protected var user: StateFlow<User?> = _user
+    private val _user: MutableStateFlow<User?> = MutableStateFlow(null)
+    protected val user: StateFlow<User?> = _user
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +38,12 @@ abstract class ActivityBase : AppCompatActivity() {
         }
     }
 
-    private suspend fun searchUser(userId: String) {
-        _user.value = userDao
+    private suspend fun searchUser(userId: String): User? {
+        return userDao
             .searchById(userId)
-            .firstOrNull()
+            .firstOrNull().also {
+             _user.value = it
+            }
     }
 
     suspend fun logOffUser() {
@@ -51,7 +53,7 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     private fun goToLogin() {
-        goTo(ActivityLogin::class.java){
+        goTo(ActivityLogin::class.java) {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         finish()

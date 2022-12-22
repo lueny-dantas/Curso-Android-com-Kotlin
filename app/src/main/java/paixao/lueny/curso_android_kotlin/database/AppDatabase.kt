@@ -12,7 +12,7 @@ import paixao.lueny.curso_android_kotlin.model.User
 
 @Database(
     entities = [Product::class, User::class],
-    version = 2,
+    version = 3,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -28,8 +28,10 @@ abstract class AppDatabase : RoomDatabase() {
                 context,
                 AppDatabase::class.java,
                 "app.db"
-            ).addMigrations(MIGRATION_1_2)
-                .build().also { db = it }
+            ).addMigrations(
+                MIGRATION_1_2,
+                MIGRATION_2_3
+            ).build().also { db = it }
         }
     }
 
