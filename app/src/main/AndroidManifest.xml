@@ -33,6 +33,9 @@
             android:name=".activity.ActivityLogin"
             android:theme="@style/Theme.Cursoandroidkotlin.NoActionBar" />
         <activity
+            android:name=".activity.ActivityUserProfile"
+            android:label="Perfil do Usuario" />
+        <activity
             android:name=".activity.ActivityProductDetails"
             android:label="Detalhes do Produto" />
         <activity
@@ -40,7 +43,7 @@
             android:label="Formulário para Cadastro de Produtos" />
         <activity
             android:name=".activity.ActivityUserRegistration"
-            android:label="Cadastrar usúario" />
+            android:label="Cadastrar usuario" />
 
         <meta-data
             android:name="preloaded_fonts"

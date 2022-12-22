@@ -2,21 +2,17 @@ package paixao.lueny.curso_android_kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import paixao.lueny.curso_android_kotlin.model.Product
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
 import paixao.lueny.curso_android_kotlin.extensions.goTo
-import paixao.lueny.curso_android_kotlin.preferences.dataStore
-import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
+import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 
 
@@ -80,13 +76,10 @@ class ActivityProductsList : ActivityBase() {
         }
 
         when (item.itemId) {
-            R.id.menu_list_product_exit_app -> {
-                lifecycleScope.launch {
-                    logOffUser()
-                }
+            R.id.menu_list_product_user_profile -> {
+                goTo(ActivityUserProfile::class.java)
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 

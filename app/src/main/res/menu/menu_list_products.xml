@@ -35,9 +35,9 @@
     </item>
 
     <item
-        android:id="@+id/menu_list_product_exit_app"
-        android:icon="@drawable/ic_exit_to_app"
-        android:title="Exit App"
+        android:id="@+id/menu_list_product_user_profile"
+        android:icon="@drawable/ic_person"
+        android:title="User profile"
         app:showAsAction="ifRoom" />
 
 </menu>
