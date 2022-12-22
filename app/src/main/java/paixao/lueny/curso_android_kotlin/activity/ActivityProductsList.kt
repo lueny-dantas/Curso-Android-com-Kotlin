@@ -6,25 +6,25 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
+import paixao.lueny.curso_android_kotlin.extensions.goTo
 import paixao.lueny.curso_android_kotlin.preferences.dataStore
 import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
 import paixao.lueny.curso_android_kotlin.recyclerview.adapter.ProductListAdapter
 
 
-class ActivityProductsList : AppCompatActivity() {
+class ActivityProductsList : ActivityBase() {
 
     private val adapter = ProductListAdapter(context = this, products = emptyList())
     private val binding by lazy { ActivityProductsListBinding.inflate(layoutInflater) }
     private val productDao by lazy { AppDatabase.instance(this).productDao() }
-    private val userDao by lazy { AppDatabase.instance(this).userDao() }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +33,20 @@ class ActivityProductsList : AppCompatActivity() {
         configureFab()
         lifecycleScope.launch {
             launch {
-                productDao.searchAll().collect { products ->
-                    adapter.update(products)
-                }
-            }
-
-            dataStore.data.collect { preferences ->
-                preferences[userLoggedPreferences]?.let { userId ->
-                    userDao.searchById(userId).collect {
-                        Log.i("listaProdutos", "onCreate: $it")
+                user
+                    .filterNotNull()
+                    .collect {
+                        searchProductsUser()
                     }
-                }
             }
         }
     }
 
+    private suspend fun searchProductsUser() {
+        productDao.searchAll().collect { products ->
+            adapter.update(products)
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_list_products, menu)
@@ -72,18 +71,24 @@ class ActivityProductsList : AppCompatActivity() {
             R.id.menu_list_product_without_sort ->
                 productDao.searchAll()
             else -> null
-
         }
 
         lifecycleScope.launch {
-            sortedProducts?.collect {products ->
+            sortedProducts?.collect { products ->
                 adapter.update(products)
+            }
+        }
+
+        when (item.itemId) {
+            R.id.menu_list_product_exit_app -> {
+                lifecycleScope.launch {
+                    logOffUser()
+                }
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun configureFab() {
         val fab = binding.activityProductsListFab

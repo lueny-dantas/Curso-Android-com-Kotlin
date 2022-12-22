@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/menu_list_product_sort"
         android:icon="@drawable/ic_action_sort"
@@ -32,5 +33,11 @@
                 android:title="Sem ordem" />
         </menu>
     </item>
+
+    <item
+        android:id="@+id/menu_list_product_exit_app"
+        android:icon="@drawable/ic_exit_to_app"
+        android:title="Exit App"
+        app:showAsAction="ifRoom" />
 
 </menu>

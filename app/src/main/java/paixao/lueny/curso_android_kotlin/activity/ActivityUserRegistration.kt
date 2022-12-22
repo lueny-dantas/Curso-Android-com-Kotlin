@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityUserRegistrationBinding
+import paixao.lueny.curso_android_kotlin.extensions.toast
 import paixao.lueny.curso_android_kotlin.model.User
 import java.lang.Exception
 
@@ -24,19 +25,18 @@ class ActivityUserRegistration: AppCompatActivity() {
     private fun configureButtonRegister() {
         binding.activityFormRegistrationButtonRegister.setOnClickListener {
             val newUser = createUser()
-            Log.i("CadastroUsuario", "onCreate: $newUser")
-            lifecycleScope.launch {
-                try {
-                    dao.save(newUser)
-                    finish()
-                }catch (e:Exception){
-                    Log.e("CadastroUsuario", "ConfigureButtonRegister:", e)
-                    Toast.makeText(
-                        this@ActivityUserRegistration,
-                        "Falha ao cadastrar usuário",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            register(newUser)
+        }
+    }
+
+    private fun register(newUser: User) {
+        lifecycleScope.launch {
+            try {
+                dao.save(newUser)
+                finish()
+            } catch (e: Exception) {
+                Log.e("CadastroUsuario", "ConfigureButtonRegister:", e)
+                toast("Falha ao cadastrar usuário")
             }
         }
     }

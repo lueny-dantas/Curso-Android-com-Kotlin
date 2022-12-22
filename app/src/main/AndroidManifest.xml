@@ -15,29 +15,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cursoandroidkotlin"
         tools:targetApi="31">
-        <activity
-            android:name=".activity.ActivityUserRegistration"
-            android:label="Cadastrar usúario" />
 
         <activity
-            android:name=".activity.ActivityLogin"
+            android:name=".activity.ActivityProductsList"
             android:exported="true"
-            android:theme="@style/Theme.Cursoandroidkotlin.NoActionBar">
+            android:label="Lista de Produtos">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-        <activity android:name=".activity.ActivityProductsList" />
-        <activity android:name=".activity.ActivityProductDetails" />
-        <activity android:name=".activity.ActivityProductForm" />
-
+        <activity
+            android:name=".activity.ActivityLogin"
+            android:theme="@style/Theme.Cursoandroidkotlin.NoActionBar" />
+        <activity
+            android:name=".activity.ActivityProductDetails"
+            android:label="Detalhes do Produto" />
+        <activity
+            android:name=".activity.ActivityProductForm"
+            android:label="Formulário para Cadastro de Produtos" />
+        <activity
+            android:name=".activity.ActivityUserRegistration"
+            android:label="Cadastrar usúario" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

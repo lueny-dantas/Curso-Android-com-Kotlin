@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
@@ -15,7 +16,7 @@ import paixao.lueny.curso_android_kotlin.preferences.dataStore
 import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
 import java.math.BigDecimal
 
-class ActivityProductForm : AppCompatActivity() {
+class ActivityProductForm : ActivityBase() {
     private val binding by lazy { ActivityProductFormBinding.inflate(layoutInflater) }
     private val productDao by lazy { AppDatabase.instance(this).productDao() }
     private val userDao by lazy { AppDatabase.instance(this).userDao() }
@@ -38,13 +39,9 @@ class ActivityProductForm : AppCompatActivity() {
 
         tryLoadProductId()
         lifecycleScope.launch {
-            dataStore.data.collect { preferences ->
-                preferences[userLoggedPreferences]?.let { userId ->
-                    userDao.searchById(userId).collect {
-                        Log.i("listaProdutos", "onCreate: $it")
-                    }
-                }
-            }
+            user
+                .filterNotNull()
+                .collect()
         }
     }
 

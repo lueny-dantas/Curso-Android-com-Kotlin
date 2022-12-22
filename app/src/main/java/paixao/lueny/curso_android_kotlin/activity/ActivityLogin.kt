@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityLoginBinding
 import paixao.lueny.curso_android_kotlin.extensions.goTo
+import paixao.lueny.curso_android_kotlin.extensions.toast
 import paixao.lueny.curso_android_kotlin.preferences.dataStore
 import paixao.lueny.curso_android_kotlin.preferences.userLoggedPreferences
 
@@ -37,18 +38,20 @@ class ActivityLogin : AppCompatActivity() {
             lifecycleScope.launch {
                 val userId = binding.activityLoginUser.text.toString()
                 val password = binding.activityLoginPassword.text.toString()
-
-                lifecycleScope.launch {
-                    userDao.authenticate(userId, password)?.let { userId ->
-                        dataStore.edit { preferences ->
-                            preferences[userLoggedPreferences]
-                        }
-                        goTo(ActivityProductsList::class.java)
-                        }?:Toast.makeText(
-                            applicationContext, "Falha na Autenticação", Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                authenticate(userId, password)
                 }
             }
         }
+
+    private fun authenticate(userId: String, password: String) {
+        lifecycleScope.launch {
+            userDao.authenticate(userId, password)?.let { userId ->
+                dataStore.edit { preferences ->
+                    preferences[userLoggedPreferences] = userId.id
+                }
+                goTo(ActivityProductsList::class.java)
+                finish()
+            } ?: toast("Falha na Autenticação")
+        }
     }
+}
