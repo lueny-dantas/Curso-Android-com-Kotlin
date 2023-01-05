@@ -1,5 +1,5 @@
 # Produtos Naturais
-Esse projeto faz parte do aprendizado do curso de Android com Kotlin no qual foi sugerido a criação e simulação de um aplicativo para um E-commerce. 
+Esse projeto apresenta um aplicativo para um E-commerce, com  login e cadastro de produtos para compra e venda.
 
 # 🔨 Funcionalidades do projeto
 O App possui a funcionalidade de listagem e cadastro de produtos que poderiam ser comercializado pelo empresa. O projeto permite cadastrar, alterar e remover produtos com imagem, nome, descrição e valor. Os produtos salvos são apresentados em uma lista ordenada e podem ser visualizados ao realizar o clique.
