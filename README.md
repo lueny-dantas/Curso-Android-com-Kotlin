@@ -8,11 +8,9 @@ O App possui a funcionalidade de listagem e cadastro de produtos que poderiam se
 
 ![ezgif com-gif-maker (8)](https://user-images.githubusercontent.com/98789294/210694113-090b6f3b-e329-4d59-868d-e042431f166e.gif)
 
-![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/98789294/210694133-8c674363-ba45-4531-b7e9-4624f1fb7310.gif)
+![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/98789294/210810291-b1bdd9a1-392c-41d6-b1a4-c3dd62293c28.gif)
 
-![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/98789294/210692902-c9790e84-21f7-4fd5-a1dd-562156ead86e.gif)
-
-![ezgif com-gif-maker (6)](https://user-images.githubusercontent.com/98789294/210693270-68c3fa92-b6ac-4cc6-ac89-5770331170ec.gif)
+![ezgif com-gif-maker (9)](https://user-images.githubusercontent.com/98789294/210810241-81924d68-403b-4ed6-a554-0b23b989ff83.gif)
 
 
 # ✔️ Técnicas e Tecnologias utilizadas:
