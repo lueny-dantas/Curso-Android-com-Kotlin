@@ -24,7 +24,7 @@ Extras: técnica para enviar e receber informações entre Activities
 Inicialização lateinit e lazy: técnicas para criar propriedades em Activities que não podem ser inicializadas na construção da Activity
 
 # 📂Acesso ao projeto
-Você pode acessar o código fonte do projeto inicial ou baixá-lo.
+Você pode acessar o código fonte do projeto inicial https://github.com/lueny-dantas/Curso-Android-com-Kotlin.git ou baixá-lo.
 
 # 🛠️ Abrir e rodar o projeto
 Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
