@@ -2,7 +2,7 @@
 Esse projeto apresenta um aplicativo para um E-commerce, com  login e cadastro de produtos para compra e venda.
 
 # 🔨 Funcionalidades do projeto
-O App possui a funcionalidade de listagem e cadastro de produtos que poderiam ser comercializado pelo empresa. O projeto permite cadastrar, alterar e remover produtos com imagem, nome, descrição e valor. Os produtos salvos são apresentados em uma lista ordenada e podem ser visualizados ao realizar o clique.
+O App possui a funcionalidade de listagem e cadastro de produtos que poderiam ser comercializado pela empresa. O projeto permite cadastrar, alterar e remover produtos com imagem, nome, descrição e valor. Os produtos salvos são apresentados em uma lista ordenada, com possibilidade de serem filtrados de diversas formas. Os detalhes de cada produto podem ser visualizados ao realizar o clique em um item da lista.
 
 # ✨Ilustração
 
@@ -19,20 +19,13 @@ O App possui a funcionalidade de listagem e cadastro de produtos que poderiam se
 * Kotlin;
 * Activities;
 * Layout para Activities:TextView, RecyclerView, ConstraintLayout, EditTex, Button;
-* Binding View;
-* Listener para cliques;
+* View Binding;
 * AndroidX: AppCompactActivity;
-* Jetpack Room: lib para persistência de dados em banco de dados interno com SQLite
-* Entidade: definição da tabela que será criada no banco de dados
-* DAO: definição dos comportamentos com o banco de dados
-* Comportamentos definidos: inserção, alteração, remoção e consultas de todos os registros e com filtro
-* Database: configuração para criar a conexão com o banco de dados conversor de tipo: converter um tipo complexo para um tipo compatível com o SQLite
-* Menu de opções: menu para editar e remover
-* Extras: técnica para enviar e receber informações entre Activities
+* Jetpack Room: lib para persistência de dados em banco de dados interno.
+* Consultas: inserção, alteração, remoção e consultas de todos os registros com filtros
+* Extras: técnica para enviar e receber informações entre Activities através de Intent
 * Inicialização lateinit e lazy: técnicas para criar propriedades em Activities que não podem ser inicializadas na construção da Activity
 
-# 📂Acesso ao projeto
-Você pode acessar o código fonte do projeto inicial [aqui](https://github.com/lueny-dantas/Curso-Android-com-Kotlin.git) ou baixá-lo.
 
 # 🛠️ Abrir e rodar o projeto
 Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
