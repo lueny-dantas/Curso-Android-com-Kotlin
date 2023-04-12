@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -29,6 +31,7 @@ class ActivityProductsList : ActivityBase() {
         setContentView(binding.root)
         configureRecyclerView()
         configureFab()
+
         lifecycleScope.launch {
                 user
                     .filterNotNull()

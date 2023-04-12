@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import paixao.lueny.curso_android_kotlin.BuildConfig
 import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.database.dao.ProductDao
 import paixao.lueny.curso_android_kotlin.database.dao.UserDao
@@ -27,7 +28,8 @@ abstract class AppDatabase : RoomDatabase() {
             return db ?: Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
-                "app.db"
+                BuildConfig.DATABASE_NAME
+
             ).addMigrations(
                 MIGRATION_1_2,
                 MIGRATION_2_3
