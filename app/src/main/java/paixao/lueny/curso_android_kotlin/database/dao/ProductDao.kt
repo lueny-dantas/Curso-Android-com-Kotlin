@@ -15,7 +15,7 @@ interface ProductDao {
     suspend fun save(vararg product: Product)
 
     @Delete
-    suspend fun remove(product: Product)
+    fun remove(product: Product)
 
     @Query("SELECT * FROM Product WHERE userId = :userId")
     fun searchAllProductByUserId(userId: String): Flow<List<Product>>

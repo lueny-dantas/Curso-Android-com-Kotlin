@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Cursoandroidkotlin"
         tools:targetApi="31">
         <activity
-            android:name=".activity.compose.ActivityProductDetailsCompose"
+            android:name=".activity.compose.ActivityComposeProductDetails"
             android:exported="false"
             android:label="@string/title_activity_product_details_compose"
             android:theme="@style/Theme.Cursoandroidkotlin" />

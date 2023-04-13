@@ -1,4 +1,4 @@
-package paixao.lueny.curso_android_kotlin.activity.ui.theme
+package paixao.lueny.curso_android_kotlin.activity.ui.ui
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

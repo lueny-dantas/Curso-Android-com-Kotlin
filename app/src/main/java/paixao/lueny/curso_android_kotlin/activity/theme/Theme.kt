@@ -1,4 +1,4 @@
-package paixao.lueny.curso_android_kotlin.activity.ui.theme
+package paixao.lueny.curso_android_kotlin.activity.ui.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
