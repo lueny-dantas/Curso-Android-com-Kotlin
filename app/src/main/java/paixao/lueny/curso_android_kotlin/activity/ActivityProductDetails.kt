@@ -5,16 +5,25 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import paixao.lueny.curso_android_kotlin.model.Product
 import paixao.lueny.curso_android_kotlin.R
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductDetailsBinding
 import paixao.lueny.curso_android_kotlin.extensions.currencyFormatting
 import paixao.lueny.curso_android_kotlin.extensions.tryLoadImage
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
 
 class ActivityProductDetails : AppCompatActivity() {
 
@@ -79,9 +88,12 @@ class ActivityProductDetails : AppCompatActivity() {
     private fun fillFields(productLoaded: Product) {
         with(binding) {
             activityProductDetailsImage.tryLoadImage(productLoaded.image)
-            activityProductDetailsName.text = productLoaded.name
             acttivityProductDetailsDescription.text = productLoaded.description
             activityProductDetailsValue.text = productLoaded.value.currencyFormatting()
+            activityProductDetailsName.text = productLoaded.name
+
+            }
         }
     }
-}
+
+

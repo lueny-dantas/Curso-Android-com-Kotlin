@@ -13,8 +13,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:fontFamily"> @font/montserrat</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
+
     <style name="Theme.Cursoandroidkotlin.NoActionBar" parent="Theme.Cursoandroidkotlin">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

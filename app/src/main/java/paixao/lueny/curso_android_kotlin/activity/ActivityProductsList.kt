@@ -4,14 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import paixao.lueny.curso_android_kotlin.R
+import paixao.lueny.curso_android_kotlin.activity.compose.ActivityComposeProductDetails
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
 import paixao.lueny.curso_android_kotlin.databinding.ActivityProductsListBinding
 import paixao.lueny.curso_android_kotlin.extensions.goTo
@@ -115,7 +113,7 @@ class ActivityProductsList : ActivityBase() {
         adapter.whenClickItem = {
             val intent = Intent(
                 this,
-                ActivityProductDetails::class.java
+                ActivityComposeProductDetails::class.java
             ).apply {
                 putExtra(ID_PRODUCT_KEY, it.id)
             }
