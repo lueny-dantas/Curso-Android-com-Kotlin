@@ -1,7 +1,7 @@
 package paixao.lueny.curso_android_kotlin.activity.compose
 
-import android.content.Context
 import android.os.Bundle
+import android.service.quicksettings.Tile
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,24 +23,24 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.appcompattheme.AppCompatTheme
+import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import paixao.lueny.curso_android_kotlin.R.*
+import paixao.lueny.curso_android_kotlin.R.font.*
 import paixao.lueny.curso_android_kotlin.activity.ID_PRODUCT_KEY
-import paixao.lueny.curso_android_kotlin.activity.ui.theme.CursoandroidkotlinTheme
 import paixao.lueny.curso_android_kotlin.database.AppDatabase
-import paixao.lueny.curso_android_kotlin.databinding.ActivityProductDetailsBinding
-import paixao.lueny.curso_android_kotlin.databinding.ActivityProductFormBinding
 import paixao.lueny.curso_android_kotlin.extensions.currencyFormatting
 import paixao.lueny.curso_android_kotlin.model.Product
 
@@ -101,7 +102,7 @@ fun DetailsAppBar(onEditProductClick: () -> Unit = {}, onDeleteProductClick: () 
     TopAppBar {
         title = {
             Text(
-                text = stringResource(id = R.string.title.)
+                text = stringResource(id = string.title_activity_product_details_compose)
             )
         }
     }
@@ -120,7 +121,7 @@ fun DetailsContent(modifier: Modifier, product: Product) {
                     .data(product.image)
                     .build(),
                 error = painterResource(id = drawable.erro),
-                placeholder = rememberDrawablePaiter(
+                placeholder = rememberDrawablePainter(
                     ContextCompat.getDrawable(
                         LocalContext.current,
                         drawable.placeholder
@@ -144,6 +145,7 @@ fun DetailsContent(modifier: Modifier, product: Product) {
                     text = product.value.currencyFormatting(),
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
+                    fontFamily = FontFamily(Font(montserrat_bold)),
                     fontWeight = FontWeight.Bold,
                     color = colorResource(color.green),
                     modifier = Modifier
@@ -159,9 +161,10 @@ fun DetailsContent(modifier: Modifier, product: Product) {
             Text(
                 text = product.name,
                 fontSize = 28.sp,
+                fontFamily = FontFamily(Font(montserrat_bold)),
                 fontWeight = FontWeight.Bold,
 
-            )
+                )
 
         }
 
